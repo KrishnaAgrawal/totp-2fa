@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>2FA Setup</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+            integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/style.css">
+
+        <script>
+            function copySecret() {
+                const text = document.getElementById("secretDisplay").innerText;
+
+                navigator.clipboard.writeText(text).then(() => {
+                    $('.text-copy').addClass('d-none');
+                    $('.copy-btn').addClass('copy-success');
+                    $('.text-copied').removeClass('d-none');
+
+                    setTimeout(() => {
+                        $('.copy-btn').removeClass('copy-success');
+                        $('.text-copied').addClass('d-none');
+                        $('.text-copy').removeClass('d-none');
+                    }, 2000);
+                });
+            }
+        </script>
+    </head>
+
+    <body class="bg-gray-200 dark:bg-black min-h-screen flex items-center justify-center transition">
+        <div class="glass p-10 rounded-3xl shadow-2xl max-w-lg w-full fade-in dark:text-white dark:bg-opacity-10">
+
+            <h1 class="text-3xl font-extrabold text-center mb-6">🔐 Set Up Two-Factor Authentication</h1>
+
+            <!-- STEP 1 -->
+            <h2 class="text-xl font-semibold mb-2">Step 1: Install Google Authenticator</h2>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+                Install Google Authenticator, Microsoft Authenticator, or Authy on your phone.
+            </p>
+
+            <!-- STEP 2 -->
+            <h2 class="text-xl font-semibold mb-2">Step 2: Scan this <strong>new</strong> QR Code</h2>
+
+            <div class="flex justify-center my-6">
+                <img src="<%= qr_image %>"
+                    class="rounded-xl shadow-xl border-2 border-white dark:border-gray-600 fade-in" />
+            </div>
+
+            <p class="text-gray-700 dark:text-gray-300 text-center mb-4">
+                Or manually enter this secret:
+            </p>
+
+            <div class="secret-box">
+                <label>Manual Entry Secret</label>
+
+                <div class="secret-display" id="secretDisplay">
+                    <%= secret %>
+                </div>
+
+                <button class="copy-btn" onclick="copySecret()">
+                    <span class="text-copy">Copy</span>
+                    <span class="text-copied d-none">✓ Copied!</span>
+                </button>
+            </div>
+
+            <!-- STEP 3 -->
+            <h2 class="text-xl font-semibold mt-10 mb-2">Step 3: Enter the 6-digit OTP</h2>
+
+            <form action="/verify" method="POST" class="mt-4">
+                <input name="token" placeholder="123 456"
+                    class="w-full text-center tracking-widest py-3 text-2xl border rounded-xl dark:bg-black dark:border-gray-600 dark:text-white shadow focus:ring-2 focus:ring-blue-500 outline-none"
+                    required />
+
+                <button
+                    class="w-full mt-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-lg rounded-xl shadow-xl transition">
+                    Verify OTP
+                </button>
+            </form>
+        </div>
+    </body>
+</html>
