@@ -9,11 +9,17 @@ A production-ready implementation of Time-based One-Time Password (TOTP) authent
 ✔ EJS (UI templates)
 ✔ Glassmorphism + Dark Mode UI
 
-Users can:
-- Scan a QR code in Google Authenticator
-- Manually enter a secret key
+## 🌍 Live Demo
+Try the app instantly — no setup required:
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Open_App-blue?style=for-the-badge)](https://totp-2fa--main.krishnaagrawal.deno.net/)
+
+
+You can:
+- Scan QR with Google Authenticator
 - Verify OTP
-- See animated success screen
+- See beautiful animations and the success screen
+
 ---
 ## 📁 Project Structure
 ```
